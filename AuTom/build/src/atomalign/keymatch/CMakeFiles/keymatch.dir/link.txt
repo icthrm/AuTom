@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libkeymatch.a  CMakeFiles/keymatch.dir/match_core.cpp.o CMakeFiles/keymatch.dir/method.cpp.o CMakeFiles/keymatch.dir/ransac.cpp.o CMakeFiles/keymatch.dir/support.cpp.o
+/usr/bin/ranlib ../../../lib/libkeymatch.a

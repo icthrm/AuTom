@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/hat_pixel.dir/main.cpp.o  -o ../../../bin/hat_pixel  -L/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib 

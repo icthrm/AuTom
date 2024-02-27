@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/filter/nad/Filter.h
+fstream
+-
+mrcheader.h
+../src/filter/nad/mrcheader.h
+Vector3.h
+../src/filter/nad/Vector3.h
+
+../src/filter/nad/Vector3.h
+iostream
+-
+cmath
+-
+
+../src/filter/nad/mrcheader.h
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/norm2d/testnorm.cpp
+iostream
+-
+sstream
+-
+stdlib.h
+-
+unistd.h
+-
+filter/nad/Filter.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/norm2d/filter/nad/Filter.h
+

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libmrcimg.a  CMakeFiles/mrcimg.dir/GraphUtils.cpp.o CMakeFiles/mrcimg.dir/mrc2img.cpp.o CMakeFiles/mrcimg.dir/mrcheader.cpp.o
+/usr/bin/ranlib ../../../lib/libmrcimg.a

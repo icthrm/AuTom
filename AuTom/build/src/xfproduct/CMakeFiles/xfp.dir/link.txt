@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/xfp.dir/xfproduct.cpp.o  -o ../../bin/xfp  -L/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib 

@@ -1,0 +1,3 @@
+/home/liuce/project/6-ProjectionError/src/build/CMakeFiles/rebuild_cache.dir
+/home/liuce/project/6-ProjectionError/src/build/CMakeFiles/edit_cache.dir
+/home/liuce/project/6-ProjectionError/src/build/CMakeFiles/ProjectionErrorStraight.dir

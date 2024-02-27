@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/geometry/calibrate.cpp
+calibrate.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/geometry/calibrate.h
+cmath
+-
+iostream
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/geometry/calibrate.h
+

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../lib/libsinglecuda.a  CMakeFiles/singlecuda.dir/filter_prj.cpp.o CMakeFiles/singlecuda.dir/recon_gpu.cpp.o CMakeFiles/singlecuda.dir/singlecuda_generated_atomrecon.cu.o
+/usr/bin/ranlib ../../../../lib/libsinglecuda.a

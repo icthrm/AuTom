@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libcustom.a  CMakeFiles/custom.dir/custom.cpp.o CMakeFiles/custom.dir/custom_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../lib/libcustom.a

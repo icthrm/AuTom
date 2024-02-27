@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/cr_rotation.dir/cr_rotation.c.o CMakeFiles/cr_rotation.dir/cr_libfunc.c.o CMakeFiles/cr_rotation.dir/mrcfile.c.o  -o ../../../bin/cr_rotation  -L/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib -Wl,-rpath,/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib -Wl,-Bstatic -lfftw3 -Wl,-Bdynamic -lm 

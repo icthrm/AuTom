@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/filter/nad/Filter.h
+fstream
+-
+mrcheader.h
+../src/filter/nad/mrcheader.h
+Vector3.h
+../src/filter/nad/Vector3.h
+
+../src/filter/nad/Vector3.h
+iostream
+-
+cmath
+-
+
+../src/filter/nad/mrcheader.h
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/testnad/testcorr.cpp
+iostream
+-
+stdlib.h
+-
+unistd.h
+-
+stdio.h
+-
+sys/types.h
+-
+filter/nad/Filter.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/testnad/filter/nad/Filter.h
+filter/nad/mrcheader.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/testnad/filter/nad/mrcheader.h
+sstream
+-
+string
+-
+time.h
+-
+

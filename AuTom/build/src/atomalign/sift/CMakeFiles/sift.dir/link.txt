@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libsift.a  CMakeFiles/sift.dir/sift_core.cpp.o
+/usr/bin/ranlib ../../../lib/libsift.a

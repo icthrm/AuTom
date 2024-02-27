@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/paramfile.dir/main.cpp.o  -o ../../../bin/paramfile  -L/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib 

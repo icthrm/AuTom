@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/common/mrcimg/mrcheader.h
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/wbp.cpp
+wbp.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/wbp.h
+cmath
+-
+cstring
+-
+iostream
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/wbp.h
+vector
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/wbp_core.cpp
+wbp_core.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/wbp_core.h
+mrcimg/mrcheader.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/mrcimg/mrcheader.h
+wbp.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/wbp.h
+string.h
+-
+fstream
+-
+vector
+-
+cmath
+-
+cassert
+-
+iostream
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomosect/wbp/wbp_core.h
+

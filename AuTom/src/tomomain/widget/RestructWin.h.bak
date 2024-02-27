@@ -1,0 +1,106 @@
+#ifndef RESTRUCTWIN_H
+#define RESTRUCTWIN_H
+#include <QtGui>
+#include <widget/CSkeleton.h>
+#include "CProgressBar.h"
+
+#define RESTRUCT_MSG     1000+5
+
+class RestructWin : public QWidget
+{
+    Q_OBJECT
+private:
+    QWidget *m_mainWidget;
+    QFrame *m_imageFram;
+    QFrame *m_ButtonFrame;
+    QFrame *m_SelectFrame;
+    CProgressBar *m_progressbar;
+    QFrame *m_SetFram;
+    
+    CSkeleton *m_Input;
+    CSkeleton *m_Output;
+    
+    QLabel *m_version_Label;
+    QComboBox * m_version_Combobox;
+    
+    QLabel *m_alogrithm_Label;
+    QComboBox *m_alogrithm_Combobox;
+    
+    QLabel *m_startModel_Label;
+    QComboBox *m_startModel_Combobox;
+    
+    QLabel *m_restructNumber_Lable;
+    QLineEdit *m_restructNumber_LineEdit;
+    
+    QLabel *m_threadNum_Lable;
+    QLineEdit *m_threadNum_LineEdit;
+    
+    QLabel *m_factor_Label;
+    QLineEdit *m_factor_LineEdit;
+    
+    QLabel *m_ParameterLabel;
+    QLineEdit *m_ParameterLineEdit;
+    
+    QLabel *m_IterativenumbersLabel;
+    QLineEdit *m_IterativenumbersLineEdit;
+    
+    QLabel *m_Method_Label;
+    QComboBox *m_Method_ComboBox;
+    
+    QLabel *m_Slice_Label;
+    QLineEdit *m_SliceLineEdit1;
+    QLineEdit *m_SliceLineEdit2;
+    QLabel *m_ICONIteration_Label;
+    QLineEdit *m_ICONIterLineEdit1;
+    QLineEdit *m_ICONIterLineEdit2;
+    QLineEdit *m_ICONIterLineEdit3;
+    QLabel *m_Threshold_Label;
+    QLineEdit *m_ThresholdLineEdit;
+    
+    
+    QLabel *m_Mrcfile_Label;
+    QAction *m_Mrcfile_Action;
+    QToolButton *m_Mrcfile_Button;
+    QLineEdit *m_Mrcfile_Lineedit;
+    
+    
+    QPushButton * m_start;
+    
+    QString m_inputImage; 
+    QString m_outputImage;
+    QStackedLayout *m_ls;
+    
+protected:
+    void CreateImageFrame();
+    void CreateButton();
+    void CreateSelectFrame();
+    
+public:
+    explicit RestructWin(QWidget* parent = 0, Qt::WindowFlags f = 0);
+    void SetInputImage();
+    void SetOutputImage();
+    bool DeleteDirectory(const QString &path);
+    
+signals:
+    void Log(QString message); 
+    void Finish(QString step);
+    void Start();
+    void RunError();
+    
+public slots:
+    void ShowInput();
+    void ShowOutput();
+    int StartRestruct();
+    int StartforRestruct();
+    void SetParVisible();
+    void ChangeAlgorithm();
+    void ChangeAlgorithm2();
+    void ChooseFile();
+        
+private:
+    virtual void customEvent(QEvent* );
+    int isNum(std::string s);
+    
+};
+
+#endif

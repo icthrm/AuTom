@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/par2xf.dir/par2xf.c.o  -o ../../../bin/par2xf  -L/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib -Wl,-rpath,/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib -Wl,-Bstatic -lfftw3 -Wl,-Bdynamic -lm 

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libframe.a  CMakeFiles/frame.dir/CMrcViewer.cpp.o CMakeFiles/frame.dir/CCtrlPanel.cpp.o CMakeFiles/frame.dir/CSectTool.cpp.o CMakeFiles/frame.dir/CSectView.cpp.o CMakeFiles/frame.dir/CSliceView.cpp.o CMakeFiles/frame.dir/frame_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../lib/libframe.a

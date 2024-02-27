@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/xfproduct/xfproduct.cpp
+iostream
+-
+fstream
+-
+string.h
+-
+stdlib.h
+-
+iomanip
+-
+

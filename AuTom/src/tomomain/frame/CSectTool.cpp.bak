@@ -1,0 +1,474 @@
+#include "CSectTool.h"
+#include <cstring>
+#include "core/msg_map.h"
+#include "core/msg.h"
+#include "custom/custom.h"
+#include "geometry/calibrate.h"
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
+/** CSectTool*/
+CSectTool::CSectTool(ItemModel& im, QWidget* parent, Qt::WindowFlags f):_data(im), QWidget(parent, f)
+{
+//     QRect rect = QApplication::desktop()->availableGeometry();
+//     skeleton_w = rect.width()*0.3;
+//     skeleton_h = rect.height()*0.3;
+    skeleton_w = 160;
+    skeleton_h = 100;
+    
+    _view.Mirror(_data.Img());
+    
+    QGridLayout* l = new QGridLayout();
+    
+    m_scene = new CSkeleton(this);
+    m_scene->SetText(QString("  %1 index: %2").arg(_data.Name()).arg(_data.Index()), _view.MirrorImage(), skeleton_w, skeleton_h, CSkeleton::Zoom);
+    l->addWidget(m_scene, 0, 0);
+    
+    scene_copy = *(m_scene->Pixmap());
+    
+    m_slice[0] = new CSkeleton(this);
+    m_slice[0]->SetText(tr("  slice1"), NULL, skeleton_w, skeleton_h, CSkeleton::Zoom);
+    l->addWidget(m_slice[0], 0, 1);
+    
+    m_slice[1] = new CSkeleton(this);
+    m_slice[1]->SetText(tr("  slice2"), NULL, skeleton_w, skeleton_h, CSkeleton::Zoom);
+    l->addWidget(m_slice[1], 1, 0);
+    
+    m_slice[2] = new CSkeleton(this);
+    m_slice[2]->SetText(tr("  slice3"), NULL, skeleton_w, skeleton_h, CSkeleton::Zoom);
+    
+    l->addWidget(m_slice[2], 1, 1);
+    l->setMargin(0);
+    setLayout(l);
+    
+    for(int i = 0; i < 3; i++){
+	loc[i] = -1;
+	slice_dv[i].state = CSectTool::null;
+	slice_dv[i].lines[0] = QLineF(0.15, 0.1, 0.85, 0.1);
+	slice_dv[i].lines[1] = QLineF(0.15, 0.9, 0.85, 0.9);
+    }
+    
+    connect(m_scene, SIGNAL(pressed()), this, SLOT(ShowSectView()));
+    connect(m_slice[0], SIGNAL(pressed()), this, SLOT(ShowSlice1()));
+    connect(m_slice[1], SIGNAL(pressed()), this, SLOT(ShowSlice2()));
+    connect(m_slice[2], SIGNAL(pressed()), this, SLOT(ShowSlice3()));
+    
+    m_sectviewf = NULL;
+}
+
+CSectTool::~CSectTool()
+{
+
+}
+
+void CSectTool::LoadSlice(int idx, const char* slice_name)
+{
+    slice_dv[idx]._data.Open(slice_name);
+    slice_dv[idx]._view.Mirror(slice_dv[idx]._data.Img());
+    
+    m_slice[idx]->SetText(tr(slice_name), slice_dv[idx]._view.MirrorImage(), skeleton_w, skeleton_h, CSkeleton::Zoom);
+    slice_dv[idx].s_copy = *(m_slice[idx]->Pixmap());
+    slice_dv[idx].state = CSectTool::init;
+}
+
+void CSectTool::ShowSectView()
+{
+    m_sectviewf = new CSectViewFrame(_data, loc, this);
+    m_sectviewf->setWindowModality(Qt::ApplicationModal);
+    m_sectviewf->setAttribute(Qt::WA_DeleteOnClose);
+    connect(m_sectviewf, SIGNAL(destroyed(QObject*)), this, SLOT(UpdateScene()));
+    
+    m_sectviewf->show();
+}
+
+void CSectTool::UpdateScene()
+{
+    *(m_scene->Pixmap()) = scene_copy;
+    QPixmap* pix = m_scene->Pixmap();
+    QPainter* painter = new QPainter(pix);
+    int width = pix->width();
+    int height = pix->height();
+    
+    painter->setPen(QPen(QColor(0, 255, 0), 1, Qt::DashDotLine, Qt::RoundCap));
+    for(int i = 0; i < 3; i++){
+	if(loc[i] >= 0 && loc[i] <= 1){
+	    painter->drawLine(0, loc[i]*height, width, loc[i]*height);
+	}
+    }
+    
+    m_scene->Update();
+    delete painter;
+}
+
+void CSectTool::UpdateSliceSkeleton()
+{
+    *(m_slice[cur_slice_idx]->Pixmap()) = slice_dv[cur_slice_idx].s_copy;
+    QPixmap* pix = m_slice[cur_slice_idx]->Pixmap();
+    QPainter* painter = new QPainter(pix);
+    int width = pix->width();
+    int height = pix->height();
+    
+    painter->setRenderHint(QPainter::Antialiasing);
+    painter->setPen(QPen(QColor(0, 255, 0), 1, Qt::SolidLine, Qt::RoundCap));
+    for(int i = 0; i < 2; i++){
+	painter->drawLine(slice_dv[cur_slice_idx].lines[i].x1()*width, 
+		slice_dv[cur_slice_idx].lines[i].y1()*height, slice_dv[cur_slice_idx].lines[i].x2()*width, slice_dv[cur_slice_idx].lines[i].y2()*height);
+    }
+    
+    slice_dv[cur_slice_idx].state = written;
+    
+    m_slice[cur_slice_idx]->Update();
+    delete painter;
+}
+
+void CSectTool::ShowSlice1()
+{
+    ShowSlice(0);
+}
+
+void CSectTool::ShowSlice2()
+{
+    ShowSlice(1);
+}
+
+void CSectTool::ShowSlice3()
+{
+    ShowSlice(2);
+}
+
+void CSectTool::ShowSlice(int idx)
+{
+    if(slice_dv[idx].state == null){
+	return;
+    }
+    
+    cur_slice_idx = idx;
+    m_sliceviewf = new CSliceViewFrame(slice_dv[idx]._data, slice_dv[idx].lines, this);
+    m_sliceviewf->setWindowModality(Qt::ApplicationModal);
+    m_sliceviewf->setAttribute(Qt::WA_DeleteOnClose);
+    
+    connect(m_sliceviewf, SIGNAL(destroyed(QObject*)), this, SLOT(UpdateSliceSkeleton()));
+    
+    m_sliceviewf->show();    
+}
+
+bool CSectTool::IsCalculable()
+{
+    return slice_dv[0].state == written && slice_dv[1].state == written && slice_dv[2].state == written;
+}
+
+QLineF CSectTool::GetDemarcater(int idx, int lidx)
+{
+    return slice_dv[idx].lines[lidx];
+}
+
+void CSectTool::GetYLoc(float* yloc)
+{
+    memcpy(yloc, loc, sizeof(float)*3);
+}
+/** CSectToolFrame*/
+
+CSectToolFrame::CSectToolFrame(ItemModel& im, QWidget* parent, Qt::WindowFlags flags): QMainWindow(parent, flags), _data(im)
+{   
+    setWindowTitle("section view");
+    m_secttool = new CSectTool(_data);
+    
+    m_mainWidget = new QWidget(this);
+    CreateImageFrame();
+    CreateButton();
+    
+    QGridLayout *l = new QGridLayout();
+    l->addWidget(m_imageFram , 0 , 0 );
+    l->addWidget(m_ButtonFrame , 1 , 0);
+    l->setMargin(0);
+    l->setSpacing(0);
+    m_mainWidget->setLayout(l);
+     m_mainWidget->setSizePolicy(QSizePolicy::Fixed , QSizePolicy::Fixed);
+
+   this->resize(250 , 250);
+    
+    QWidget* q = new QWidget(this);
+    setCentralWidget(q);
+    
+    QGridLayout *l0 = new QGridLayout();
+    l0->addWidget(m_mainWidget);
+    l0->setMargin(3);
+   q->setLayout(l0);
+    
+    QPalette palette;
+    m_mainWidget->setAutoFillBackground(true);
+    palette.setColor(QPalette::Background , QColor(200, 200, 200));
+    m_mainWidget->setPalette(palette);
+    
+    palette.setColor(QPalette::Background , QColor(189, 189, 189));
+    this->setAutoFillBackground(true);
+    this->setPalette(palette);
+    
+//     QWidget* q = new QWidget(this);
+//     QGridLayout* l = new QGridLayout();
+//     q->setLayout(l);
+//     l->addWidget(m_secttool);    
+//     setCentralWidget(q);  
+    
+//     m_topbar = new QToolBar("Control");
+//     addToolBar(Qt::TopToolBarArea, m_topbar);
+//     m_topbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+//     m_topbar->setMovable(false);
+//     
+//     SetTopToolBar(m_topbar);
+//    
+//     QRect rect = QApplication::desktop()->availableGeometry();
+//     this->move((rect.width()-this->width())/3, (rect.height()-this->height())/3);
+}
+
+CSectToolFrame::~CSectToolFrame()
+{
+
+}
+
+void CSectToolFrame::CreateImageFrame()
+{
+  m_imageFram = new QFrame(m_mainWidget);
+   m_imageFram->setFrameStyle(QFrame::Panel|QFrame::Raised|QFrame::HLine);
+    QGridLayout *l = new QGridLayout();
+    l->addWidget(m_secttool);
+    l->setMargin(5);
+//     m_secttool->resize(320 , 200);
+    m_imageFram->setLayout(l);
+//     m_imageFram->resize(320 ,200);
+}
+
+void CSectToolFrame::CreateButton()
+{
+  m_ButtonFrame = new QFrame(m_mainWidget);
+  m_ButtonFrame->setFrameStyle(QFrame::Panel|QFrame::Sunken);
+  m_Set = new QPushButton(tr("Set Thickness") , m_ButtonFrame);
+  m_Set->setIcon(QIcon(":/setting.png"));
+  m_Calibrate = new QPushButton(tr("Calibrate") , m_ButtonFrame);
+  m_Calibrate->setIcon(QIcon(":/build.png"));
+  QGridLayout* l = new QGridLayout();
+  l->addWidget(m_Set , 0 , 0);;
+  l->addWidget(m_Calibrate , 0 ,2);
+  l->setMargin(0);
+   m_ButtonFrame->setLayout(l);
+   
+   connect(m_Set , SIGNAL(clicked(bool)) , this , SLOT(SetSetWindow()));
+   connect(m_Calibrate , SIGNAL(clicked(bool)) , this  , SLOT(DoCalibration()));
+}
+
+void CSectToolFrame::SetTopToolBar(QToolBar* toolbar)
+{    
+    calib = new QAction(QIcon(":/build.png"), tr("Calibrate"), this);
+    calib->setShortcut(tr("Ctrl+C"));
+    
+    auto_demar = new QAction(QIcon(":/auto.png"), tr("Auto"), this);
+    auto_demar->setShortcut(tr("Ctrl+A"));
+    auto_demar->setDisabled(true);
+    
+    to_set = new QAction(QIcon(":/setting.png"), tr("Setting"), this);
+    to_set->setShortcut(tr("Ctrl+S"));
+    
+    toolbar->addAction(calib);
+    toolbar->addAction(auto_demar);
+    toolbar->addAction(to_set);
+    
+    connect(calib, SIGNAL(triggered()), this, SLOT(DoCalibration()));
+    connect(auto_demar, SIGNAL(triggered()), this, SLOT(AutoDemarcate()));
+    connect(to_set, SIGNAL(triggered(bool)),this, SLOT(SetSetWindow()));
+}
+
+const QLineF& CSectToolFrame::FullLine(const QLineF& itm)
+{
+    static QLineF l;
+    l = QLineF(0, itm.y1()-itm.x1()*(itm.y2()-itm.y1())/(itm.x2()-itm.x1()), 1, itm.y1()+(1-itm.x1())*(itm.y2()-itm.y1())/(itm.x2()-itm.x1()));
+    
+    return l;
+}
+
+void CSectToolFrame::DoCalibration()
+{
+    if(!m_secttool->IsCalculable()){
+	QMessageBox::warning(this, "Warning", "No model to calibrate!");
+	return;
+    }
+    emit Start();
+    float yloc[3];
+    float lz[12];
+    m_secttool->GetYLoc(yloc);
+    for(int i = 0; i < 3; i++){
+	for(int j = 0; j < 2; j++){
+	    QLineF l = FullLine(m_secttool->GetDemarcater(i, j));
+	    lz[i*4+j*2] = l.y1();
+	    lz[i*4+j*2+1] = l.y2();
+	}
+    }
+    
+    std::stringstream ss;
+    
+    /*
+    ss<<"y axis: ";
+    for(int i = 0; i < 3; i++){
+	ss<<yloc[i]<<" ";
+    }
+    ss<<std::endl;
+    ss<<"z axis: ";
+    for(int i = 0; i < 12; i++){
+	ss<<lz[i]<<" ";
+    }
+    ss<<std::endl;
+    */
+    float z_shift, offset, thickness, pitch_angle;
+    Calibrate(yloc, lz, CDoc::GetSectSetting().Thickness(), CDoc::GetItemModel().Width(), CDoc::GetItemModel().Height(), &z_shift, &offset, &thickness, &pitch_angle);
+    /*
+    ss<<"z_shift: "<<z_shift<<std::endl;
+    ss<<"offset: "<<offset*180<<std::endl;
+    ss<<"thickness: "<<thickness<<std::endl;
+    ss<<"pitch_angle: "<<pitch_angle*180<<std::endl;
+    std::ofstream out("result.txt");
+    out<<ss.str();
+    out.close();
+    */
+    int thickness0 = (int)thickness;
+    ss<<"#Geometry parameters"<<std::endl;
+    ss<<"THICKNESS "<<thickness0<<std::endl;
+    ss<<"ZSHIFT "<<z_shift<<std::endl;
+    ss<<"OFFSET "<<offset*180<<std::endl;
+    ss<<"PITCH "<<pitch_angle<<std::endl;
+
+
+      printf("123\n");
+	char comd[500]={0};
+	sprintf(comd,"sed -e '/^[ \t]*#[ \t]*Geometry parameters[ \t]*$/d' %s > %s","geometry.par","geometry.par.bak");
+	system(comd);
+	///*
+	memset(comd,0,500);
+	sprintf(comd,"sed -e '/^[ \t]*THICKNESS[ \t]\\+[0-9]\\+[ \t]*$/d' %s > %s","geometry.par.bak","geometry.par");
+	//sprintf(comd,"sed -e '/THICKNESS/d' %s > %s","param.par.bak","param.par");
+	system(comd);
+
+	memset(comd,0,500);
+	sprintf(comd,"sed -e '/^[ \t]*ZSHIFT[ \t]\\+[-0-9.]\\+[ \t]*$/d' %s > %s","geometry.par","geometry.par.bak");
+	//sprintf(comd,"sed -e '/ZSHIFT/d' %s > %s","param.par","param.par.bak");
+	system(comd);
+
+	memset(comd,0,500);
+	sprintf(comd,"sed -e '/^[ \t]*OFFSET[ \t]\\+[-0-9.]\\+[ \t]*$/d' %s > %s","geometry.par.bak","geometry.par");
+	//sprintf(comd,"sed -e '/OFFSET/d' %s > %s","param.par.bak","param.par");
+	system(comd);
+
+	memset(comd,0,500);
+	sprintf(comd,"sed -e '/^[ \t]*PITCH[ \t]\\+[-0-9.]\\+[ \t]*$/d' %s > %s","geometry.par","geometry.par.bak");
+	//sprintf(comd,"sed -e '/PITCH/d' %s > %s","param.par","param.par.bak");
+	system(comd);
+
+	memset(comd,0,500);
+	sprintf(comd,"rm -f %s;mv %s %s","geometry.par","geometry.par.bak","geometry.par");
+	system(comd);
+
+    FILE *fp;   
+    fp = fopen("geometry.par","a+");
+    fprintf(fp,"#Geometry parameters\n");
+    fprintf(fp,"THICKNESS %d\n",thickness0);
+    fprintf(fp,"ZSHIFT %f\n",z_shift);
+    fprintf(fp,"OFFSET %f\n",offset*180);
+    fprintf(fp,"PITCH %f\n",pitch_angle);
+    
+//     printf("#Geometry parameters\n");
+//     printf("THICKNESS %d\n",thickness0);
+//     printf("ZSHIFT %f\n",z_shift);
+//     printf("OFFSET %f\n",offset*180);
+//     printf("PITCH %f\n",pitch_angle);
+
+    fclose(fp);
+
+    QMessageBox::information(this, "Result", ss.str().c_str());
+    if(CProManage::GetInstance()->GetMethod()=="BasedMethod"){
+	CProManage::AddItem("GERMETRY_STATE_BASED" , "FINISH");
+	emit Finish("GeometryBased");
+    }
+    else{
+	CProManage::AddItem("GERMETRY_STATE" , "FINISH");
+	emit Finish("Geometry");
+    }
+
+}
+
+void CSectToolFrame::AutoDemarcate()
+{
+//     msg_map::Message* msg = MMTApp::NewMessage(BUILD_MODEL_MSG, this, instruction.toLatin1().data());
+//     MMTApp::PostMessage(msg);
+}
+
+void CSectToolFrame::StopAutoDemarcate()
+{
+//     MMTApp::AbortCurrentProc();
+}
+
+void CSectToolFrame::customEvent(QEvent* e)
+{
+    QObject::customEvent(e);
+}
+
+void CSectToolFrame::closeEvent(QCloseEvent* e)
+{
+    QWidget::closeEvent(e);
+}
+
+//@ wang lian shan
+void CSectToolFrame::Setting(QAbstractButton* button)
+{
+    if(button == buttonBox->button(QDialogButtonBox::Ok)){
+	if(spinBox->value() > 400){
+	    CDoc::GetSectSetting().SetThickness(spinBox->value());
+	    m_setwindow->close();
+	}
+	else{
+	    QMessageBox::StandardButton rb = QMessageBox::warning(m_setwindow , tr("Warning!"), tr("The thickness is less then 400\n"),  QMessageBox::Cancel|QMessageBox::Ok);
+	    if(rb == QMessageBox::Ok){
+		CDoc::GetSectSetting().SetThickness(spinBox->value());
+		m_setwindow->close();
+	    }
+	    else if(rb == QMessageBox::Cancel){
+		spinBox->setValue(CDoc::GetSectSetting().Thickness());
+	    }
+	}
+    }
+    else{
+	m_setwindow->close();
+    }
+    
+}
+
+//@ wang lian shan
+void CSectToolFrame::SetSetWindow()
+{
+    m_setwindow = new QDialog;
+    m_setwindow->resize(260,100);
+    m_setwindow->setFixedSize(260,100);
+
+    QLabel *label;
+ 
+    m_setwindow->setWindowTitle(tr("Set Thickness"));;
+    
+     buttonBox = new QDialogButtonBox(m_setwindow);
+     buttonBox->setGeometry(QRect(40, 60, 170, 32));
+     buttonBox->setOrientation(Qt::Horizontal);
+     buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+    
+    label = new QLabel(m_setwindow);
+    label->setText(tr("Thickness: "));
+    label->setGeometry(QRect(32,22,90,17));
+    spinBox = new QSpinBox(m_setwindow);
+    spinBox->setGeometry(QRect(130, 20, 120, 27));
+    spinBox->setRange(0,10000);
+    spinBox->setValue(CDoc::GetSectSetting().Thickness());
+    
+    connect(buttonBox , SIGNAL(clicked(QAbstractButton*)) , this , SLOT(Setting(QAbstractButton*)));
+    m_setwindow->setAttribute(Qt::WA_DeleteOnClose , true);//设置关闭窗口时delete
+    m_setwindow->show();
+}
+
+
+
+#include "CSectTool.moc"

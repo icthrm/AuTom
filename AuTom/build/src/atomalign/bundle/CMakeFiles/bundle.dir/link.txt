@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libbundle.a  CMakeFiles/bundle.dir/bundle_core.cpp.o CMakeFiles/bundle.dir/img_projs.cpp.o CMakeFiles/bundle.dir/params.cpp.o CMakeFiles/bundle.dir/sfm_driver.cpp.o CMakeFiles/bundle.dir/triangulate.cpp.o
+/usr/bin/ranlib ../../../lib/libbundle.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libmx2to3.a  CMakeFiles/mx2to3.dir/mx2to3.cpp.o
+/usr/bin/ranlib ../../../lib/libmx2to3.a

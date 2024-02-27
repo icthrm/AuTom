@@ -1,0 +1,39 @@
+newstack 的图像操作公式为：
+     X' = A11 * X + A12 * Y + DX
+     Y' = A21 * X + A22 * Y + DY
+
+注意事项（以下参考系在由IMOD显示的MRC图人眼直观中适用）：
+1、newstack的图像坐标定在图像中心，如下所示：
+
+
+    ｜－－－－－－－－－－－－－－｜
+    ｜                      ｜
+    ｜         y            ｜
+    ｜         ｜            ｜
+    ｜         ｜            ｜
+    ｜         ｜            ｜
+    ｜         ＋－－－－－－>x｜
+    ｜                      ｜
+    ｜                      ｜
+    ｜                      ｜
+    ｜                      ｜
+    ｜－－－－－－－－－－－－－－｜
+2、newstck 首先对图像进行旋转，再对其进行平移。即，我们一般的思维是先平移，再旋转，则：
+    X' = A11 * X + A12 * Y + A11 * SHIFT_X + A12 * SHIFT_Y
+    Y' = A21 * X + A22 * Y + A21 * SHIFT_X + A22 * SHIFT_Y
+
+3、关于旋转中的角度，serialalign.txt中的例子：
+For example, if the image is rotated by some angle theta, A11 and A22 are cos(theta), and A21 and A12 are sin(theta) and -sin(theta).
+中角度由x轴向y轴，即逆时针旋转。比如，转30度，有
+
+ y'  y
+ |  /
+ | /
+ |/
+ V－－－－－x'
+ 
+y轴到y',x轴向下转到x'（未画出） 
+
+4、calibration.h中结构的解释
+角度为原始角，在写为xf时需要求逆
+其他视情况而定。

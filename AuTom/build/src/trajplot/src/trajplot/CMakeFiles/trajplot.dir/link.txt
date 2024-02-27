@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/trajplot.dir/main.cpp.o CMakeFiles/trajplot.dir/function.cpp.o  -o ../../../../bin/trajplot  -L/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/lib  -L/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/build/src/trajplot/lib 

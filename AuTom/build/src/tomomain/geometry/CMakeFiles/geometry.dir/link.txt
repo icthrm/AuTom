@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libgeometry.a  CMakeFiles/geometry.dir/calibrate.cpp.o
+/usr/bin/ranlib ../../../lib/libgeometry.a

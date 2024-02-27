@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../lib/libVolumeWindow.a  CMakeFiles/VolumeWindow.dir/volumemainwindow.cpp.o CMakeFiles/VolumeWindow.dir/VolumeWindow_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../../lib/libVolumeWindow.a

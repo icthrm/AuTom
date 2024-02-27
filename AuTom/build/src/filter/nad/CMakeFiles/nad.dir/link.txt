@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libnad.a  CMakeFiles/nad.dir/Filter.cpp.o CMakeFiles/nad.dir/mrcheader.cpp.o
+/usr/bin/ranlib ../../../lib/libnad.a

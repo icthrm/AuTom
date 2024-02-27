@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../lib/libcore.a  CMakeFiles/core.dir/msg_map.cpp.o CMakeFiles/core.dir/proxy.cpp.o CMakeFiles/core.dir/thread.cpp.o
+/usr/bin/ranlib ../lib/libcore.a

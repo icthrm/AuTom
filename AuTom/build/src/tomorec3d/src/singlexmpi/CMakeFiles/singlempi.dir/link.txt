@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../lib/libsinglempi.a  CMakeFiles/singlempi.dir/filter_prj.cpp.o CMakeFiles/singlempi.dir/recon.cpp.o
+/usr/bin/ranlib ../../../../lib/libsinglempi.a

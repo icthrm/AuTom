@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/common/util/exception.cpp
+exception.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/common/util/exception.h
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/common/util/exception.h
+iostream
+-
+sstream
+-
+string
+-
+cstdio
+-
+stdarg.h
+-
+cstring
+-
+cstdio
+-
+ctime
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/common/util/qsort.cpp
+assert.h
+-
+stdlib.h
+-
+stdio.h
+-
+string.h
+-
+qsort.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/common/util/qsort.h
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/common/util/qsort.h
+

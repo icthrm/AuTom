@@ -1,0 +1,15 @@
+set(CUSTOM_SRCS custom.cpp)
+#qt4_automoc(${CUSTOM_SRCS})
+set(CMAKE_INCLUDE_CURRENT_DIR ON)    
+set(CMAKE_AUTOMOC ON)  
+find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Gui)
+
+include_directories(${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
+
+add_library(custom STATIC ${CUSTOM_SRCS})
+#target_link_libraries(custom ${QT_QTCORE_LIBRARY} ${QT_QTGUI_LIBRARY})
+target_link_libraries(custom Qt5::Widgets Qt5::Core Qt5::Gui)
+set_target_properties(custom PROPERTIES OUTPUT_NAME "custom")
+set_target_properties(custom PROPERTIES CLEAN_DIRECT_OUTPUT 1)

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../lib/libalgorithm.a  CMakeFiles/algorithm.dir/bimap.cpp.o CMakeFiles/algorithm.dir/gradientcalculator.cpp.o CMakeFiles/algorithm.dir/triangulate.cpp.o CMakeFiles/algorithm.dir/subdivion.cpp.o CMakeFiles/algorithm.dir/algorithm_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../../lib/libalgorithm.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../../lib/libshader.a  CMakeFiles/shader.dir/shaderprogram.cpp.o CMakeFiles/shader.dir/raycastingshader.cpp.o
+/usr/bin/ranlib ../../../../../lib/libshader.a

@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/ProjectionErrorStraight.dir/ProjectionErrorStraight_generated_ProjectionErrorStraight.cu.o CMakeFiles/ProjectionErrorStraight.dir/ProjectionErrorStraight_generated_mrc_file.cu.o  -o ProjectionErrorStraight -rdynamic /usr/local/cuda-7.5/lib64/libcudart_static.a -lpthread -ldl -lrt 

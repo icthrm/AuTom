@@ -1,0 +1,39 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>images/openfile.png</file>
+    <file>images/save.png</file>
+    <file>images/new.png</file>
+    <file>images/cut.png</file>
+    <file>images/copy.png</file>
+    <file>images/undo.png</file>
+    <file>images/paste.png</file>
+    <file>images/process.png</file>
+    <file>images/filelist.png</file>
+    <file>images/file.png</file>
+    <file>images/folder.png</file>
+    <file>images/build.png</file>
+    <file>images/stop.png</file>
+    <file>images/openfile.png</file>
+    <file>images/test.png</file>
+    <file>images/test.jpg</file>
+    <file>images/zoomin.png</file>
+    <file>images/zoomout.png</file>
+    <file>images/addworkspace.png</file>
+    <file>images/newproject.png</file>
+    <file>images/kill.png</file>
+    <file>images/clear.png</file>
+    <file>images/files.png</file>
+    <file>./build.png</file>
+    <file>./stop.png</file>
+    <file>./key.png</file>
+    <file>./lock.png</file>
+    <file>./fullline.png</file>
+    <file>./fullline2.png</file>
+    <file>./auto.png</file>
+    <file>./setting.png</file>
+    <file>images/zoomin.png</file>
+    <file>images/zoomout.png</file>
+    <file>images/back.png</file>
+    <file>images/next.png</file>
+</qresource>
+</RCC>

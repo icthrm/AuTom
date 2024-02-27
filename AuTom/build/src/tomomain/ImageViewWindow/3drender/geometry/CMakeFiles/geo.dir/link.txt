@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../../lib/libgeo.a  CMakeFiles/geo.dir/mesh.cpp.o CMakeFiles/geo.dir/volume.cpp.o CMakeFiles/geo.dir/slicevolume.cpp.o CMakeFiles/geo.dir/renderobject.cpp.o CMakeFiles/geo.dir/geo_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../../../lib/libgeo.a

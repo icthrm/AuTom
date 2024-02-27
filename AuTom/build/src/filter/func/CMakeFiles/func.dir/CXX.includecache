@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/func/simplex.cpp
+simplex.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/func/simplex.h
+iostream
+-
+unistd.h
+-
+stdlib.h
+-
+errno.h
+-
+cstring
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/filter/func/simplex.h
+stdlib.h
+-
+stdio.h
+-
+string
+-
+math.h
+-
+

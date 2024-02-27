@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libwbp.a  CMakeFiles/wbp.dir/wbp.cpp.o CMakeFiles/wbp.dir/wbp_core.cpp.o
+/usr/bin/ranlib ../../../lib/libwbp.a

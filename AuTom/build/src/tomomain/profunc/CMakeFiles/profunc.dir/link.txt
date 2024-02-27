@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libprofunc.a  CMakeFiles/profunc.dir/profunc.cpp.o CMakeFiles/profunc.dir/profunc_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../lib/libprofunc.a

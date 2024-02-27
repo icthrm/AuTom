@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+c6ad20d88f96c71f11529a1288c8b5c1 custom/CMakeFiles/custom_automoc

@@ -1,0 +1,36 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/common/mrcimg/mrcheader.h
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/mrcCombine/main.cpp
+mrcimg/mrcheader.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/mrcCombine/mrcimg/mrcheader.h
+fstream
+-
+opts.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/mrcCombine/opts.h
+cstdlib
+-
+iostream
+-
+cstring
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/mrcCombine/opts.h
+iostream
+-
+sstream
+-
+cassert
+-
+cstdio
+-
+getopt.h
+-
+

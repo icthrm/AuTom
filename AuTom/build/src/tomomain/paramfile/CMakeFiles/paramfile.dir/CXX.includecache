@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/paramfile/main.cpp
+stdlib.h
+-
+stdio.h
+-
+string.h
+-
+math.h
+-
+getopt.h
+-
+regex.h
+-
+

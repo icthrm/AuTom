@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../lib/libImageViewWindow.a  CMakeFiles/ImageViewWindow.dir/slicemainwindow.cpp.o CMakeFiles/ImageViewWindow.dir/ImageViewWindow_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../../lib/libImageViewWindow.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libpromanage.a  CMakeFiles/promanage.dir/ProManage.cpp.o CMakeFiles/promanage.dir/promanage_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../lib/libpromanage.a

@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../lib/libinterpret.a  CMakeFiles/interpret.dir/interpret.cpp.o CMakeFiles/interpret.dir/object_estimate.cpp.o
+/usr/bin/ranlib ../../../lib/libinterpret.a

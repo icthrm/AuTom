@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/env/env.cpp
+env.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/env/env.h
+climits
+-
+iostream
+-
+stdlib.h
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/env/env.h
+string
+-
+unistd.h
+-
+fcntl.h
+-
+

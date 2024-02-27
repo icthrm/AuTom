@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../src/tomomain/env/env.h
+string
+-
+unistd.h
+-
+fcntl.h
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/init/Cinit.cpp
+Cinit.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/init/Cinit.h
+string.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/init/string.h
+env/env.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/init/env/env.h
+string
+-
+fstream
+-
+iostream
+-
+
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/init/Cinit.h
+env/env.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/init/env/env.h
+string.h
+/home/yangzhidong/haoyu/AuTom_20181119_withmrcview/src/tomomain/init/string.h
+string
+-
+iostream
+-
+

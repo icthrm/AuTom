@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../../../lib/libabstract.a  CMakeFiles/abstract.dir/widgetplugininterface.cpp.o CMakeFiles/abstract.dir/abstractsliceeditorplugin.cpp.o CMakeFiles/abstract.dir/abstractslicedatamodel.cpp.o CMakeFiles/abstract.dir/abstract_autogen/mocs_compilation.cpp.o
+/usr/bin/ranlib ../../../../lib/libabstract.a
